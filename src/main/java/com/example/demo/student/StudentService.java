@@ -2,10 +2,13 @@ package com.example.demo.student;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.logging.Logger;
 
 @Service
 public class StudentService
@@ -20,12 +23,12 @@ public class StudentService
 
     public List<Student> getStudents()
     {
-        return studentRepository.findAll();
+        return dataAccessExpectionCommonHandler(studentRepository::findAll);
     }
 
     public void addNewStudent(Student student)
     {
-        Optional<Student> studentByEmail = studentRepository.findStudentByEmail(student.getEmail());
+        Optional<Student> studentByEmail = dataAccessExpectionCommonHandler(() -> studentRepository.findStudentByEmail(student.getEmail()));
         if (studentByEmail.isPresent())
         {
             throw new IllegalStateException("Email already taken");
@@ -36,7 +39,7 @@ public class StudentService
 
     public void deleteStudent(Long studentId)
     {
-        boolean studentExists = studentRepository.existsById(studentId);
+        boolean studentExists = dataAccessExpectionCommonHandler(() ->studentRepository.existsById(studentId));
 
         if (!studentExists)
         {
@@ -50,7 +53,7 @@ public class StudentService
     @Transactional
     public void updateStudentName(Long studentId, String name)
     {
-        Optional<Student> studentOptional = studentRepository.findById(studentId);
+        Optional<Student> studentOptional = dataAccessExpectionCommonHandler(() ->studentRepository.findById(studentId));
 
         if (studentOptional.isEmpty())
         {
@@ -65,8 +68,7 @@ public class StudentService
 
     public Optional<Student> findStudentById(Long studentId)
     {
-
-        return studentRepository.findById(studentId);
+        return dataAccessExpectionCommonHandler(() ->studentRepository.findById(studentId));
     }
 
     public boolean studentModelIsValid(Student student)
@@ -83,6 +85,21 @@ public class StudentService
 
         //Add further validation
         return true;
+    }
+
+    // Used common exception handler for database issues because the Repository annotation in the repository class
+    // converts all database exceptions to DatabaseAccessException
+    private <T> T dataAccessExpectionCommonHandler(Supplier<T> supplier)
+    {
+        try
+        {
+            return supplier.get();
+        }
+        catch (DataAccessException exception)
+        {
+            System.out.println("Error: " + exception.getMessage());
+            return (T) Optional.empty();
+        }
     }
 
 }
