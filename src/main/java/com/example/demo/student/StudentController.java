@@ -30,8 +30,9 @@ public class StudentController
     public ResponseEntity<List<StudentDTO>> getStudents()
     {
         List<StudentDTO> dtoList = new LinkedList<>();
+        List<Student> modelList = studentService.getStudents();
 
-        for (Student student: studentService.getStudents())
+        for (Student student: modelList)
         {
             dtoList.add(studentDTOConverter.convertStudentToDTO(student));
         }
@@ -39,8 +40,8 @@ public class StudentController
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-    // Returns DTO because the responsebody shouldn't expose email and id because in this application they're immutable
-    // and the responsebody should include changed info for frontend visualization.
+    // Returns DTO because the response body shouldn't expose email and id because in this application they're immutable
+    // and the response body should include changed info for frontend visualization.
     @PostMapping
     public ResponseEntity<StudentDTO> registerStudent(@RequestBody Student student)
     {

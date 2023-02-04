@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.logging.Logger;
 
 @Service
 public class StudentService
@@ -23,12 +23,19 @@ public class StudentService
 
     public List<Student> getStudents()
     {
-        return dataAccessExpectionCommonHandler(studentRepository::findAll);
+        try
+        {
+            return studentRepository.findAll();
+        }
+        catch (DataAccessException exception)
+        {
+            return Collections.emptyList();
+        }
     }
 
     public void addNewStudent(Student student)
     {
-        Optional<Student> studentByEmail = dataAccessExpectionCommonHandler(() -> studentRepository.findStudentByEmail(student.getEmail()));
+        Optional<Student> studentByEmail = handleDataAccessException(() -> studentRepository.findStudentByEmail(student.getEmail()));
         if (studentByEmail.isPresent())
         {
             throw new IllegalStateException("Email already taken");
@@ -39,7 +46,7 @@ public class StudentService
 
     public void deleteStudent(Long studentId)
     {
-        boolean studentExists = dataAccessExpectionCommonHandler(() ->studentRepository.existsById(studentId));
+        boolean studentExists = handleDataAccessException(() ->studentRepository.existsById(studentId));
 
         if (!studentExists)
         {
@@ -53,7 +60,7 @@ public class StudentService
     @Transactional
     public void updateStudentName(Long studentId, String name)
     {
-        Optional<Student> studentOptional = dataAccessExpectionCommonHandler(() ->studentRepository.findById(studentId));
+        Optional<Student> studentOptional = handleDataAccessException(() ->studentRepository.findById(studentId));
 
         if (studentOptional.isEmpty())
         {
@@ -68,7 +75,7 @@ public class StudentService
 
     public Optional<Student> findStudentById(Long studentId)
     {
-        return dataAccessExpectionCommonHandler(() ->studentRepository.findById(studentId));
+        return handleDataAccessException(() ->studentRepository.findById(studentId));
     }
 
     public boolean studentModelIsValid(Student student)
@@ -89,7 +96,7 @@ public class StudentService
 
     // Used common exception handler for database issues because the Repository annotation in the repository class
     // converts all database exceptions to DatabaseAccessException
-    private <T> T dataAccessExpectionCommonHandler(Supplier<T> supplier)
+    private <T> T handleDataAccessException(Supplier<T> supplier)
     {
         try
         {
