@@ -5,6 +5,9 @@ import com.example.demo.student.StudentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -15,10 +18,18 @@ public class StudentServiceTest
     private StudentService studentService;
 
     @Test
-    public void studentModelIsValidTest()
+    public void ShouldCheckIfModelIsValid()
     {
         Student student = new Student("", null, null);
 
         assertFalse(studentService.studentModelIsValid(student));
+    }
+
+    @Test
+    public void ShouldCheckIfModelIsInvalid()
+    {
+        Student student = new Student("Lucas", LocalDate.now(), "email@gmail.com");
+
+        assertTrue(studentService.studentModelIsValid(student));
     }
 }

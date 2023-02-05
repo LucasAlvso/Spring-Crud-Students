@@ -1,6 +1,7 @@
 package com.example.demo.student;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+@Slf4j
 @Service
 public class StudentService
 {
@@ -38,6 +40,7 @@ public class StudentService
         Optional<Student> studentByEmail = handleDataAccessException(() -> studentRepository.findStudentByEmail(student.getEmail()));
         if (studentByEmail.isPresent())
         {
+            log.error("Could not create student because the email already taken");
             throw new IllegalStateException("Email already taken");
         }
 
@@ -50,6 +53,7 @@ public class StudentService
 
         if (!studentExists)
         {
+            log.error("Could not delete student because student with id " + studentId + " does not exist.");
             throw new IllegalStateException("Student with id " + studentId + " does not exist.");
         }
 
@@ -64,6 +68,7 @@ public class StudentService
 
         if (studentOptional.isEmpty())
         {
+            log.error("Could not update student because student with id " + studentId + " does not exist.");
             throw new IllegalStateException("Student with id " + studentId + " does not exist.");
         }
 

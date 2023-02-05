@@ -90,7 +90,7 @@ public class StudentController
         //Created a model and replaced name on memory in order to use the same validation method
         Student modelAfterNameChange = studentOptional.get();
         modelAfterNameChange.setName(name);
-        if (!studentService.studentModelIsValid(studentOptional.get()))
+        if (!studentService.studentModelIsValid(modelAfterNameChange))
         {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

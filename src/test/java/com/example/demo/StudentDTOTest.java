@@ -20,7 +20,7 @@ public class StudentDTOTest
 
 
     @Test
-    public void dtoConversionTest()
+    public void ShouldCheckIfCorrectlyConvertsModelToDTO()
     {
         Student student = new Student("Carlos", LocalDate.of(1993, Month.SEPTEMBER, 25), "mail@gmail.com");
         StudentDTO studentDTO = studentDTOConverter.convertStudentToDTO(student);
