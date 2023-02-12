@@ -24,10 +24,26 @@ public class StudentController
         this.studentDTOConverter = studentDTOConverter;
     }
 
+    @GetMapping(path = "{studentId}")
+    public ResponseEntity<StudentDTO> getStudentById(@PathVariable Long studentId)
+    {
+        Optional<Student> student = studentService.findStudentById(studentId);
+
+        if (student.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        StudentDTO studentDTO = studentDTOConverter.convertStudentToDTO(student.get());
+
+        return new ResponseEntity<>(studentDTO, HttpStatus.OK);
+
+    }
+
 
     //Returns list of DTOs in order to avoid exposing user email and ID
     @GetMapping
-    public ResponseEntity<List<StudentDTO>> getStudents()
+    public ResponseEntity<List<StudentDTO>> getAllStudents()
     {
         List<StudentDTO> dtoList = new LinkedList<>();
         List<Student> modelList = studentService.getStudents();
