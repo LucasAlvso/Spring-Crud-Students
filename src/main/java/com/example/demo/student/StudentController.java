@@ -65,13 +65,12 @@ public class StudentController
 
         if (studentOptional.isEmpty())
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        StudentDTO dtoBody = studentDTOConverter.convertStudentToDTO(studentOptional.get());
         studentService.deleteStudent(studentId);
 
-        return new ResponseEntity<>(dtoBody, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // Searches student by ID and replaces their name
