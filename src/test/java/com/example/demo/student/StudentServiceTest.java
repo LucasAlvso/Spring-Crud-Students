@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.student;
 
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentService;
@@ -18,7 +18,7 @@ public class StudentServiceTest
     private StudentService studentService;
 
     @Test
-    public void ShouldCheckIfModelIsValid()
+    public void ShouldCheckIfModelIsInValid()
     {
         Student student = new Student("", null, null);
 
@@ -26,7 +26,7 @@ public class StudentServiceTest
     }
 
     @Test
-    public void ShouldCheckIfModelIsInvalid()
+    public void ShouldCheckIfModelIsValid()
     {
         Student student = new Student("Lucas", LocalDate.now(), "email@gmail.com");
 

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.student;
 
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentDTO;
