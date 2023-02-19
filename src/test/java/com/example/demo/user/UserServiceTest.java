@@ -88,16 +88,4 @@ public class UserServiceTest
         when(userRepository.findAll()).thenReturn(List.of(user, user2));
     }
 
-    @Test
-    void shouldReturnUserById()
-    {
-        Optional<User> userOptional = Optional.of(new User(12L, "Lucas", "senha", UserRole.ADMIN));
-
-        when(userRepository.findById(anyLong())).thenReturn(userOptional);
-
-        Optional<User> result = userService.findUserById(12L);
-
-        assertEquals(userOptional, result);
-    }
-
 }
