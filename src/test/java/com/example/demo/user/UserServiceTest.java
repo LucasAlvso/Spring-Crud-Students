@@ -1,0 +1,73 @@
+package com.example.demo.user;
+
+import com.example.demo.student.StudentRepository;
+import com.example.demo.student.StudentService;
+import org.checkerframework.checker.nullness.Opt;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+public class UserServiceTest
+{
+
+    @MockBean
+    UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Test
+    void shouldSaveUser()
+    {
+        Optional<User> user = Optional.of(new User("Lucas", "senha", UserRole.ADMIN));
+
+        when(userRepository.save(user.get())).thenReturn(user.get());
+
+        Optional<User> result = userService.createUser(user.get());
+
+        assertEquals(result, user);
+    }
+
+    @Test
+    void shouldFindUserById()
+    {
+        Optional<User> userOptional = Optional.of(new User(20L, "Lucas", "senha", UserRole.ADMIN));
+
+        when(userRepository.findById(20L)).thenReturn(userOptional);
+
+        Optional<User> result = userService.findUserById(20L);
+
+        assertEquals(result, userOptional);
+    }
+
+    @Test
+    void shouldCheckIfUserIsValid()
+    {
+        User user = new User("Lucas", "senha", UserRole.ADMIN);
+
+        assertTrue(userService.isValid(user));
+    }
+
+    @Test
+    void shouldCheckIfUsernameExists()
+    {
+        User user = new User("Lucas", "senha", UserRole.ADMIN);
+
+        when(userRepository.findUserByUsername("Lucas")).thenReturn(Optional.of(user));
+
+        boolean result = userService.usernameIsAvailable(user.getUsername());
+
+        assertFalse(result);
+    }
+
+}
