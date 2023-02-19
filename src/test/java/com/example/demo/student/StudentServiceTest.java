@@ -62,4 +62,22 @@ public class StudentServiceTest
         assertEquals(student, result);
     }
 
+    @Test
+    void shouldDeleteStudentById()
+    {
+        Long studentId = 123L;
+        when(studentRepository.existsById(anyLong())).thenReturn(true);
+
+        studentService.deleteStudent(studentId);
+
+        verify(studentRepository, times(1)).deleteById(studentId);
+    }
+
+    @Test
+    void shouldThrowExceptionTryingToDeleteStudent()
+    {
+        assertThrows(IllegalStateException.class, () -> studentService.deleteStudent(999999999999L));
+    }
+
+
 }
