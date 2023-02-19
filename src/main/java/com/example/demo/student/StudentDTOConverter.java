@@ -1,8 +1,9 @@
 package com.example.demo.student;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class StudentDTOConverter
 {
     public StudentDTO convertStudentToDTO(Student student)
