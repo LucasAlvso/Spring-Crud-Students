@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -47,6 +49,38 @@ public class UserService
         return true;
     }
 
+
+    public boolean usernameIsAvailable(String username)
+    {
+        Optional<User> userOptional = userRepository.findUserByUsername(username);
+
+        return userOptional.isEmpty();
+    }
+
+    public Optional<User> deleteUserById(Long id)
+    {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isEmpty())
+        {
+            throw new IllegalStateException("User not found");
+        }
+
+        userRepository.deleteById(id);
+        return userOptional;
+    }
+
+    public List<User> getAllUsers()
+    {
+        try
+        {
+            return userRepository.findAll();
+        }
+        catch (DataAccessException e)
+        {
+            return Collections.emptyList();
+        }
+    }
     private <T> T handleDataAccessException(Supplier<T> supplier)
     {
         try
@@ -58,12 +92,5 @@ public class UserService
             System.out.println("Error: " + exception.getMessage());
             return (T) Optional.empty();
         }
-    }
-
-    public boolean usernameIsAvailable(String username)
-    {
-        Optional<User> userOptional = userRepository.findUserByUsername(username);
-
-        return userOptional.isEmpty();
     }
 }
