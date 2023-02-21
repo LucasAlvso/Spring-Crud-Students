@@ -1,5 +1,7 @@
-package com.example.demo.user;
+package com.example.demo.dtoconverter;
 
+import com.example.demo.dto.UserDTO;
+import com.example.demo.model.user.User;
 import org.springframework.stereotype.Component;
 
 @Component

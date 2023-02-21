@@ -1,6 +1,10 @@
 package com.example.demo.user;
 
 
+import com.example.demo.model.user.User;
+import com.example.demo.model.enums.UserRole;
+import com.example.demo.repository.user.UserRepository;
+import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;

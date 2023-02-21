@@ -1,5 +1,9 @@
-package com.example.demo.student;
+package com.example.demo.controller;
 
+import com.example.demo.model.student.Student;
+import com.example.demo.dto.StudentDTO;
+import com.example.demo.dtoconverter.StudentDTOConverter;
+import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

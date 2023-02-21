@@ -1,6 +1,7 @@
-package com.example.demo.user;
+package com.example.demo.service;
 
-import com.example.demo.student.StudentRepository;
+import com.example.demo.model.user.User;
+import com.example.demo.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;

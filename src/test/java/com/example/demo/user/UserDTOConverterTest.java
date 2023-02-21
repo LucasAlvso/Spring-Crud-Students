@@ -1,5 +1,9 @@
 package com.example.demo.user;
 
+import com.example.demo.dto.UserDTO;
+import com.example.demo.dtoconverter.UserDTOConverter;
+import com.example.demo.model.user.User;
+import com.example.demo.model.enums.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,8 @@
-package com.example.demo.student;
+package com.example.demo.dtoconverter;
 
+import com.example.demo.dto.StudentDTO;
+import com.example.demo.model.student.Student;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class StudentDTOConverter

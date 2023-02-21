@@ -1,5 +1,7 @@
-package com.example.demo.student;
+package com.example.demo.config;
 
+import com.example.demo.model.student.Student;
+import com.example.demo.repository.student.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +14,7 @@ import java.util.List;
 public class StudentConfig
 {
     @Bean
-    CommandLineRunner commandLineRunner(StudentRepository repository)
+    CommandLineRunner studentCommandLineRunner(StudentRepository repository)
     {
         return args -> {
             Student lucas = new Student(1L, "Lucas", LocalDate.of(2003, Month.JULY, 25), "lucas.soares008@edu.pucrs.br");

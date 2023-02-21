@@ -1,5 +1,6 @@
-package com.example.demo.student;
+package com.example.demo.repository.student;
 
+import com.example.demo.model.student.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

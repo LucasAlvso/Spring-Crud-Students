@@ -1,9 +1,10 @@
-package com.example.demo.user;
+package com.example.demo.model.user;
 
+import com.example.demo.model.enums.UserRole;
 import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "application_user")
 public class User
 {
     @Id

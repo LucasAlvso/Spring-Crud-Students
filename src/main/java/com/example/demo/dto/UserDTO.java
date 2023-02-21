@@ -1,5 +1,7 @@
-package com.example.demo.user;
+package com.example.demo.dto;
 
+
+import com.example.demo.model.enums.UserRole;
 
 public class UserDTO
 {

@@ -1,7 +1,9 @@
 package com.example.demo.student;
 
+import com.example.demo.model.student.Student;
+import com.example.demo.repository.student.StudentRepository;
+import com.example.demo.service.StudentService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

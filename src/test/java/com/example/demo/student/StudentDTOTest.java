@@ -1,8 +1,8 @@
 package com.example.demo.student;
 
-import com.example.demo.student.Student;
-import com.example.demo.student.StudentDTO;
-import com.example.demo.student.StudentDTOConverter;
+import com.example.demo.dto.StudentDTO;
+import com.example.demo.dtoconverter.StudentDTOConverter;
+import com.example.demo.model.student.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

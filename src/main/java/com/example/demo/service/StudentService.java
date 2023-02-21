@@ -1,6 +1,8 @@
-package com.example.demo.student;
+package com.example.demo.service;
 
 
+import com.example.demo.model.student.Student;
+import com.example.demo.repository.student.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
