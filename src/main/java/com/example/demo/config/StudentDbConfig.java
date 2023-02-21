@@ -31,6 +31,8 @@ public class StudentDbConfig
             EntityManagerFactoryBuilder builder,
             @Qualifier("studentDataSource") DataSource dataSource)
     {
-        return builder.dataSource(dataSource).packages("com.example.demo.model.student").build();
+        LocalContainerEntityManagerFactoryBean factoryBean = builder.dataSource(dataSource).packages("com.example.demo.model.student").build();
+        factoryBean.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "create-drop");
+        return factoryBean;
     }
 }

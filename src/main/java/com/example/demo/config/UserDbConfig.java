@@ -29,6 +29,8 @@ public class UserDbConfig
             EntityManagerFactoryBuilder builder,
             @Qualifier("userDataSource") DataSource dataSource)
     {
-        return builder.dataSource(dataSource).packages("com.example.demo.model.user").build();
+        LocalContainerEntityManagerFactoryBean factoryBean = builder.dataSource(dataSource).packages("com.example.demo.model.user").build();
+        factoryBean.getJpaPropertyMap().put("hibernate.hbm2ddl.auto", "create-drop");
+        return factoryBean;
     }
 }
