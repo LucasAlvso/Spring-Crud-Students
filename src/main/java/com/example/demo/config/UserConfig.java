@@ -9,8 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 @Configuration
@@ -23,7 +21,7 @@ public class UserConfig
             User lucas = new User(12L, "Lucas", "senha", UserRole.ADMIN);
             User roberto = new User(13L, "Roberto", "senha123", UserRole.USER);
 
-            //repository.saveAll(List.of(lucas, roberto));
+            repository.saveAll(List.of(lucas, roberto));
         };
     }
 }
